@@ -1,5 +1,6 @@
 package com.zotmovies.fabflix;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,11 +42,13 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password_login);
         res_msg = (TextView) findViewById(R.id.login_res_msg);
         loginButton = (Button) findViewById(R.id.login_submit);
+        final Intent intent = new Intent(this, MainActivity.class);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                /* res_msg.setText("Email: " + email.getText().toString() + " and Password: " + password.getText().toString());*/
-                loginProcess(email.getText().toString(), password.getText().toString());
+                /*loginProcess(email.getText().toString(), password.getText().toString());*/
+                startActivity(intent);
             }
         });
     }
