@@ -43,14 +43,13 @@ public class LoginActivity extends AppCompatActivity{
         password = (EditText) findViewById(R.id.password_login);
         res_msg = (TextView) findViewById(R.id.login_res_msg);
         loginButton = (Button) findViewById(R.id.login_submit);
-<<<<<<< HEAD
-        final Intent intent = new Intent(this, MovieListActivity.class);
-=======
-        intent = new Intent(this, MainActivity.class);
->>>>>>> master
+
+        intent = new Intent(this, SearchActivity.class);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //startActivity(intent);
                 loginProcess(email.getText().toString(), password.getText().toString());
             }
         });
@@ -72,9 +71,8 @@ public class LoginActivity extends AppCompatActivity{
 
                             Boolean result = new Boolean(response);
                             if(!result)
-                                res_msg.setText("Invalid combination of username and password. Please try again!");
+                                res_msg.setText("Invalid combination of username and password. \nPlease try again!");
                             else{
-                                res_msg.setVisibility(View.GONE);
                                startActivity(intent);
                             }
                         }catch(Exception e){
