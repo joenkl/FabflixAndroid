@@ -21,7 +21,7 @@ import java.util.Map;
 import static com.zotmovies.fabflix.Constants.LOGIN_URL;
 
 /**
- * Created by LuanNguyen on 5/18/2017.
+ * Created by JosephNguyen on 5/18/2017.
  */
 
 
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password_login);
         res_msg = (TextView) findViewById(R.id.login_res_msg);
         loginButton = (Button) findViewById(R.id.login_submit);
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, MovieListActivity.class);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
