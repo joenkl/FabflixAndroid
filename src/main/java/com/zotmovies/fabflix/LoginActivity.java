@@ -25,11 +25,12 @@ import static com.zotmovies.fabflix.Constants.LOGIN_URL;
  */
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
     EditText email, password;
     TextView res_msg;
     Button loginButton;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +43,15 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password_login);
         res_msg = (TextView) findViewById(R.id.login_res_msg);
         loginButton = (Button) findViewById(R.id.login_submit);
+<<<<<<< HEAD
         final Intent intent = new Intent(this, MovieListActivity.class);
+=======
+        intent = new Intent(this, MainActivity.class);
+>>>>>>> master
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* res_msg.setText("Email: " + email.getText().toString() + " and Password: " + password.getText().toString());*/
-                /*loginProcess(email.getText().toString(), password.getText().toString());*/
-                startActivity(intent);
+                loginProcess(email.getText().toString(), password.getText().toString());
             }
         });
     }
@@ -65,19 +68,29 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        res_msg.setText("Response is: " + response.substring(0, 500));
+                        try {
+
+                            Boolean result = new Boolean(response);
+                            if(!result)
+                                res_msg.setText("Invalid combination of username and password. Please try again!");
+                            else{
+                                res_msg.setVisibility(View.GONE);
+                               startActivity(intent);
+                            }
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                res_msg.setText("That didn't work!");
+                error.printStackTrace();
             }
         }){
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("email", cusEmail);
+                params.put("username", cusEmail);
                 params.put("password", cusPassword);
                 return params;
             }
