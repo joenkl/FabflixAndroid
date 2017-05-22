@@ -1,5 +1,6 @@
 package com.zotmovies.fabflix;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.zotmovies.fabflix.Constants.LOGIN_URL;
@@ -22,10 +25,12 @@ import static com.zotmovies.fabflix.Constants.SEARCH_URL;
 
 public class SearchActivity extends AppCompatActivity {
 
+    private List<String> movieList;
+    private EditText searchBar;
+    private TextView searchResp;
+    private Button searchBtn;
 
-    EditText searchBar;
-    TextView searchResp;
-    Button searchBtn;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +50,14 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        //TODO: get movieList, send to new activity
+        intent = new Intent(this, MovieListActivity.class);
+        //send to new activity
+        movieList = new ArrayList<String>();
+        intent.putStringArrayListExtra("movieList", (ArrayList<String>) movieList);
+
+        //to retrieve
+        //ArrayList<String> movieList = getIntent().getStringArrayListExtra("movieList");
     }
 
     protected void searchProcess(final String searchBar){

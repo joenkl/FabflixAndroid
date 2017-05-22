@@ -7,11 +7,21 @@ import java.util.ArrayList;
  */
 
 public class Pagination {
-    public static final int TOTAL = 42;
-    public static final int ITEMS_PER_PAGE = 8;
-    public static final int ITEMS_REMAINING = TOTAL % ITEMS_PER_PAGE;
-    public static final int LAST_PAGE = TOTAL/ITEMS_PER_PAGE;
 
+    public int TOTAL;
+    public static final int ITEMS_PER_PAGE = 8;
+    public int ITEMS_REMAINING;
+    public int LAST_PAGE;
+    private ArrayList <String> listOfMovieTitle;
+
+
+    public Pagination(int total, ArrayList<String> movieList)
+    {
+        TOTAL = total;
+        ITEMS_REMAINING = TOTAL % ITEMS_PER_PAGE;
+        LAST_PAGE = TOTAL/ITEMS_PER_PAGE;
+        listOfMovieTitle = movieList;
+    }
 
 
     public ArrayList<String> generatePage (int currentPage) {
@@ -22,12 +32,12 @@ public class Pagination {
 
         if (currentPage == LAST_PAGE && ITEMS_REMAINING > 0) {
             for (int i = start; i < start + ITEMS_REMAINING; i++)
-                movieListData.add("Movie " + i);
+                movieListData.add(listOfMovieTitle.get(i).toString());
         }
         else
         {
             for (int i = start; i < start + numOfItem; i++)
-                movieListData.add("Movie " + i);
+                movieListData.add(listOfMovieTitle.get(i).toString());
         }
 
         return movieListData;

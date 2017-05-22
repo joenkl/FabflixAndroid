@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by LuanNguyen on 5/21/2017.
  */
@@ -16,15 +19,20 @@ import android.widget.Toast;
 public class MovieListActivity extends AppCompatActivity{
 
     ListView movieList;
+    ArrayList<String> listOfMovieTitle;
     Button next, prev;
-    Pagination p = new Pagination();
-    private int totalPages = Pagination.TOTAL / Pagination.ITEMS_PER_PAGE;
+    Pagination p;
+    private int totalPages; //p.getTOTAL() / p.ITEMS_PER_PAGE;
+    /*Pagination.TOTAL / Pagination.ITEMS_PER_PAGE;*/
     private int currentPage = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_list);
+
+        listOfMovieTitle = getIntent().getStringArrayListExtra("movieList");
+        p = new Pagination(listOfMovieTitle.size(), listOfMovieTitle);
 
         movieList = (ListView) findViewById(R.id.movieList);
         next = (Button) findViewById(R.id.next);
