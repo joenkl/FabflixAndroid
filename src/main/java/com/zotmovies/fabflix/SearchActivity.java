@@ -37,19 +37,22 @@ public class SearchActivity extends AppCompatActivity {
     private EditText searchBar;
     private TextView searchResp;
     private Button searchBtn;
+    private Button logoutBtn;
 
     Intent intent;
+    Intent logoutIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
 
+
+
         //get info from search bar
         searchBar = (EditText) findViewById(R.id.search_bar);
         searchResp =(TextView) findViewById(R.id.search_resp);
         searchBtn = (Button) findViewById(R.id.search_btn);
-
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +61,19 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: get movieList, send to new activity
+
+        logoutBtn = (Button) findViewById((R.id.logout));
+
+        logoutIntent = new Intent(this, LoginActivity.class);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(logoutIntent);
+            }
+        });
+
+
         intent = new Intent(this, MovieListActivity.class);
 
     }
@@ -78,13 +93,18 @@ public class SearchActivity extends AppCompatActivity {
                         TypeToken<List<String>> token = new TypeToken<List<String>>(){};
                         List<String> movieList = gson.fromJson(String.valueOf(json), token.getType());
 
-                        intent.putStringArrayListExtra("movieList", new ArrayList<String>(movieList));
-                        startActivity(intent);
+                        if(movieList.size() == 0)
+                            searchResp.setText("No result found");
+                        else{
+                            searchResp.setText("");
+                            intent.putStringArrayListExtra("movieList", new ArrayList<String>(movieList));
+                            startActivity(intent);
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                searchResp.setText("That didn't work!");
+                searchResp.setText("Connection Error");
             }
         });
         // Add the request to the RequestQueue.

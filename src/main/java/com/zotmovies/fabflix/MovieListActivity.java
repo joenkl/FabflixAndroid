@@ -6,14 +6,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by LuanNguyen on 5/21/2017.
+ * Created by JosephNguyen on 5/21/2017.
  */
 
 public class MovieListActivity extends AppCompatActivity{
@@ -25,6 +27,7 @@ public class MovieListActivity extends AppCompatActivity{
     private int totalPages; //p.getTOTAL() / p.ITEMS_PER_PAGE;
     /*Pagination.TOTAL / Pagination.ITEMS_PER_PAGE;*/
     private int currentPage = 0;
+    TextView pageCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -41,6 +44,7 @@ public class MovieListActivity extends AppCompatActivity{
         movieList = (ListView) findViewById(R.id.movieList);
         next = (Button) findViewById(R.id.next);
         prev = (Button) findViewById(R.id.prev);
+        pageCount = (TextView) findViewById(R.id.pageCount);
 
         if (totalPages == 0)
         {
@@ -59,6 +63,7 @@ public class MovieListActivity extends AppCompatActivity{
 
         movieList.setAdapter(new ArrayAdapter<String>(MovieListActivity.this,
                 android.R.layout.simple_list_item_1, p.generatePage(currentPage)));
+        pageCount.setText("Page: " + (currentPage + 1) + "/" + (totalPages + 1));
 
         next.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -66,6 +71,7 @@ public class MovieListActivity extends AppCompatActivity{
                 movieList.setAdapter(new ArrayAdapter<String>(MovieListActivity.this,
                         android.R.layout.simple_list_item_1, p.generatePage(currentPage)));
                 buttonEnable();
+                pageCount.setText("Page: " + (currentPage + 1) + "/" + (totalPages + 1));
             }
         });
 
@@ -76,6 +82,7 @@ public class MovieListActivity extends AppCompatActivity{
                 movieList.setAdapter(new ArrayAdapter<String>(MovieListActivity.this,
                         android.R.layout.simple_list_item_1, p.generatePage(currentPage)));
                 buttonEnable();
+                pageCount.setText("Page: " + (currentPage + 1) + "/" + (totalPages + 1));
             }
         });
     }

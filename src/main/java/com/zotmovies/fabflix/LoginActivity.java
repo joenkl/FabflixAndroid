@@ -49,8 +49,8 @@ public class LoginActivity extends AppCompatActivity{
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intent);
-                //loginProcess(email.getText().toString(), password.getText().toString());
+                //startActivity(intent);
+                loginProcess(email.getText().toString(), password.getText().toString());
             }
         });
     }
@@ -70,8 +70,10 @@ public class LoginActivity extends AppCompatActivity{
                         try {
 
                             Boolean result = new Boolean(response);
-                            if(!result)
+                            if(!result){
                                 res_msg.setText("Invalid combination of username and password. \nPlease try again!");
+                                password.setText("");
+                            }
                             else{
                                startActivity(intent);
                             }
