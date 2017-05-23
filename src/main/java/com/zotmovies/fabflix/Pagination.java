@@ -20,7 +20,7 @@ public class Pagination {
     public Pagination(int total, ArrayList<String> movieList)
     {
         TOTAL = total;
-        ITEMS_REMAINING = TOTAL % ITEMS_PER_PAGE;
+        ITEMS_REMAINING = TOTAL % ITEMS_PER_PAGE;//EDGE CASE: 32 % 8 = 0
         LAST_PAGE = TOTAL/ITEMS_PER_PAGE;
         listOfMovieTitle = movieList;
     }
@@ -28,9 +28,8 @@ public class Pagination {
 
     public ArrayList<String> generatePage (int currentPage) {
 
-        int start = currentPage * ITEMS_PER_PAGE + 1;
+        int start = currentPage * ITEMS_PER_PAGE;
         int numOfItem = ITEMS_PER_PAGE;
-
 
 
 
@@ -42,8 +41,9 @@ public class Pagination {
         System.out.println(currentPage);
 
         if (currentPage == LAST_PAGE && ITEMS_REMAINING > 0) {
-            for (int i = start; i < start + ITEMS_REMAINING; i++)
-                movieListData.add(listOfMovieTitle.get(i).toString());
+            for (int i = start; i < start + ITEMS_REMAINING; i++){
+                System.out.println(listOfMovieTitle.get(i).toString());
+                movieListData.add(listOfMovieTitle.get(i).toString());}
         }
         else
         {
@@ -54,7 +54,8 @@ public class Pagination {
         return movieListData;
     }
 
-    public int getTOTAL(){
-        return TOTAL;
+    public int getLAST_PAGE(){
+        System.out.println("LAST PAGE IS:" + LAST_PAGE);
+        return LAST_PAGE;
     }
 }

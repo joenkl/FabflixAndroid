@@ -35,11 +35,17 @@ public class MovieListActivity extends AppCompatActivity{
 
 
         p = new Pagination(listOfMovieTitle.size(), listOfMovieTitle);
-        totalPages = p.getTOTAL();
+        totalPages = p.getLAST_PAGE();
+
 
         movieList = (ListView) findViewById(R.id.movieList);
         next = (Button) findViewById(R.id.next);
         prev = (Button) findViewById(R.id.prev);
+
+        if (totalPages == 0)
+        {
+            next.setEnabled(false);
+        }
         prev.setEnabled(false);
 
 
@@ -75,7 +81,12 @@ public class MovieListActivity extends AppCompatActivity{
     }
 
     private void buttonEnable(){
-        if (currentPage == totalPages){
+        if (totalPages == 0)
+        {
+            prev.setEnabled(false);
+            next.setEnabled(false);
+        }
+        else if (currentPage == totalPages){
             prev.setEnabled(true);
             next.setEnabled(false);
         }
@@ -83,7 +94,7 @@ public class MovieListActivity extends AppCompatActivity{
             prev.setEnabled(false);
             next.setEnabled(true);
         }
-        else if (currentPage >= 1 &&  currentPage <= totalPages ){
+        else if (currentPage >= 1 &&  currentPage < totalPages ){
             prev.setEnabled(true);
             next.setEnabled(true);
         }
