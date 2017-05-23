@@ -1,5 +1,7 @@
 package com.zotmovies.fabflix;
 
+import android.provider.Settings;
+
 import java.util.ArrayList;
 
 /**
@@ -27,12 +29,8 @@ public class Pagination {
     public ArrayList<String> generatePage (int currentPage) {
 
         int start = currentPage * ITEMS_PER_PAGE + 1;
-        /*int numOfItem = ITEMS_PER_PAGE;*/
-        int numOfItem;
-        if (TOTAL < ITEMS_PER_PAGE)
-            numOfItem = TOTAL;
-        else
-            numOfItem = ITEMS_PER_PAGE;
+        int numOfItem = ITEMS_PER_PAGE;
+
 
 
 
@@ -40,6 +38,8 @@ public class Pagination {
         System.out.println(listOfMovieTitle);
         System.out.println(start);
         System.out.println(numOfItem);
+        System.out.println(LAST_PAGE);
+        System.out.println(currentPage);
 
         if (currentPage == LAST_PAGE && ITEMS_REMAINING > 0) {
             for (int i = start; i < start + ITEMS_REMAINING; i++)
