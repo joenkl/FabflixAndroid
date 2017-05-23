@@ -32,7 +32,10 @@ public class MovieListActivity extends AppCompatActivity{
         setContentView(R.layout.movie_list);
 
         listOfMovieTitle = getIntent().getStringArrayListExtra("movieList");
+
+
         p = new Pagination(listOfMovieTitle.size(), listOfMovieTitle);
+        totalPages = p.getTOTAL();
 
         movieList = (ListView) findViewById(R.id.movieList);
         next = (Button) findViewById(R.id.next);

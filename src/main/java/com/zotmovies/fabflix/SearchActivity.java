@@ -12,10 +12,18 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,12 +60,7 @@ public class SearchActivity extends AppCompatActivity {
 
         //TODO: get movieList, send to new activity
         intent = new Intent(this, MovieListActivity.class);
-        //send to new activity
-        movieList = new ArrayList<String>();
-        intent.putStringArrayListExtra("movieList", (ArrayList<String>) movieList);
 
-        //to retrieve
-        //ArrayList<String> movieList = getIntent().getStringArrayListExtra("movieList");
     }
 
     protected void searchProcess(final String searchBar){
@@ -66,12 +69,17 @@ public class SearchActivity extends AppCompatActivity {
 
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
+
+        JsonArrayRequest stringRequest = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        searchResp.setText("Response is: "+ response.substring(0,500));
+                    public void onResponse(JSONArray json) {
+                        Gson gson=new Gson();
+                        TypeToken<List<String>> token = new TypeToken<List<String>>(){};
+                        List<String> movieList = gson.fromJson(String.valueOf(json), token.getType());
+
+                        intent.putStringArrayListExtra("movieList", new ArrayList<String>(movieList));
+                        startActivity(intent);
                     }
                 }, new Response.ErrorListener() {
             @Override
