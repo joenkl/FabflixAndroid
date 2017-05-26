@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity{
                                 password.setText("");
                             }
                             else{
+                                password.setText("");
                                startActivity(intent);
                             }
                         }catch(Exception e){

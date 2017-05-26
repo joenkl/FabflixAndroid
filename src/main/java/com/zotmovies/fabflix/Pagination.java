@@ -22,6 +22,8 @@ public class Pagination {
         TOTAL = total;
         ITEMS_REMAINING = TOTAL % ITEMS_PER_PAGE;
         LAST_PAGE = TOTAL/ITEMS_PER_PAGE;
+        if (ITEMS_REMAINING == 0)
+            LAST_PAGE -= 1;
         listOfMovieTitle = movieList;
     }
 

@@ -56,10 +56,14 @@ public class SearchActivity extends AppCompatActivity {
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                searchProcess(searchBar.getText().toString());
+            public void onClick(View v) { 
+                if(searchBar.getText().toString().length() == 0)
+                    searchResp.setText("Search field cannot be empty!!");
+                else
+                    searchProcess(searchBar.getText().toString());
             }
         });
+
 
 
         logoutBtn = (Button) findViewById((R.id.logout));

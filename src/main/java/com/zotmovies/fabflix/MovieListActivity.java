@@ -63,7 +63,7 @@ public class MovieListActivity extends AppCompatActivity{
 
         movieList.setAdapter(new ArrayAdapter<String>(MovieListActivity.this,
                 android.R.layout.simple_list_item_1, p.generatePage(currentPage)));
-        pageCount.setText("Page: " + (currentPage + 1) + "/" + (totalPages + 1));
+        pageCount.setText(listOfMovieTitle.size() + " Results | Page: " + (currentPage + 1) + "/" + (totalPages + 1));
 
         next.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -71,7 +71,7 @@ public class MovieListActivity extends AppCompatActivity{
                 movieList.setAdapter(new ArrayAdapter<String>(MovieListActivity.this,
                         android.R.layout.simple_list_item_1, p.generatePage(currentPage)));
                 buttonEnable();
-                pageCount.setText("Page: " + (currentPage + 1) + "/" + (totalPages + 1));
+                pageCount.setText(listOfMovieTitle.size() + " Results | Page: " + (currentPage + 1) + "/" + (totalPages + 1));
             }
         });
 
@@ -82,7 +82,7 @@ public class MovieListActivity extends AppCompatActivity{
                 movieList.setAdapter(new ArrayAdapter<String>(MovieListActivity.this,
                         android.R.layout.simple_list_item_1, p.generatePage(currentPage)));
                 buttonEnable();
-                pageCount.setText("Page: " + (currentPage + 1) + "/" + (totalPages + 1));
+                pageCount.setText(listOfMovieTitle.size() + " Results | Page: " + (currentPage + 1) + "/" + (totalPages + 1));
             }
         });
     }
