@@ -3,6 +3,7 @@ package com.zotmovies.fabflix;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -86,6 +90,7 @@ public class SearchActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = SEARCH_URL+"?title=" + searchBar;
 
+        url = url.replaceAll(" ", "+");
 
         // Request a string response from the provided URL.
 
@@ -108,7 +113,7 @@ public class SearchActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                searchResp.setText("Connection Error");
+                searchResp.setText("Invalid Search");
             }
         });
         // Add the request to the RequestQueue.
